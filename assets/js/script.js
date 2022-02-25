@@ -121,6 +121,11 @@ $("#task-form-modal").on("show.bs.modal", function() {
   $("#modalTaskDescription, #modalDueDate").val("");
 });
 
+$("#modalDueDate").datepicker({
+  minDate: 1
+});
+
+
 // modal is fully visible
 $("#task-form-modal").on("shown.bs.modal", function() {
   // highlight textarea
@@ -204,6 +209,14 @@ $(".list-group").on("click", "span", function() {
     .addClass("form-control")
     .val(date);
   $(this).replaceWith(dateInput);
+
+  dateInput.datepicker({
+    minDate: 1,
+    onClose: function(){
+      // when calendar is closed, force a "change" event on the 'dateInput'
+      $(this).trigger("change");
+    }
+  });
 
   // automatically bring up the calendar
   dateInput.trigger("focus");
